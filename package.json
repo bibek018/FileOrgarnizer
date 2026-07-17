@@ -1,0 +1,19 @@
+{
+  "name": "fileorganizer",
+  "version": "1.0.0",
+  "description": "A simple Node.js CLI to organize files by extension.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "cli",
+    "file-organizer",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
