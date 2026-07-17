@@ -1,24 +1,23 @@
 # File Organizer
 
-File Organizer is a simple Node.js CLI tool that scans a folder and automatically sorts files into category-based subfolders such as Images, Documents, Media, and Others.
+File Organizer is a lightweight Node.js CLI that automatically sorts files in a folder into category-based subfolders. It is built for quick cleanup of messy directories such as downloads, desktop folders, or project asset folders.
 
-It is useful for quickly cleaning up a messy directory and keeping downloads, desktop folders, or project assets organized.
+The script scans the target directory, detects each file type, and moves it into a matching folder such as Images, Documents, Media, or Others. If a file with the same name already exists in the destination, the script generates a unique name instead of overwriting it.
 
 ## Features
 
-- Sorts files by extension into dedicated folders
-- Creates destination folders automatically if they do not exist
+- Organizes files by extension into folders
+- Handles duplicate file names safely
+- Creates destination folders automatically
 - Works from the command line with a single folder path
-- Keeps the original file names intact
+- Keeps the original file content intact while moving it
 
-## How It Works
-
-The script checks every item inside the target directory. If the item is a file, it looks at the file extension and moves it into the matching folder:
+## Supported File Types
 
 - Images: `.png`, `.jpg`, `.jpeg`
 - Documents: `.doc`, `.txt`, `.csv`, `.pptx`, `.xlsx`, `.pdf`
 - Media: `.mp4`, `.mp3`, `.mkv`
-- Others: everything else
+- Others: any extension not listed above
 
 ## Requirements
 
@@ -27,39 +26,51 @@ The script checks every item inside the target directory. If the item is a file,
 
 ## Installation
 
-Clone the repository and make sure dependencies are available:
+Clone the repository:
 
 ```bash
 git clone <your-repo-url>
 cd fileorganizer
 ```
 
-This project does not use third-party packages, so no install step is required.
+No extra packages are required because this project uses only built-in Node.js modules.
 
 ## Usage
 
-Run the script and pass the folder path as an argument:
+Run the organizer by passing a folder path:
 
 ```bash
 node main.js "Directory_Path"
 ```
 
-You can use any valid folder path on your machine:
+If you added the `start` script in `package.json`, you can also use:
+
+```bash
+npm start -- "Directory_Path"
+```
+
+Example:
 
 ```bash
 node main.js "C:\\Users\\YourName\\Downloads"
 ```
 
-## Example Output
+For the same example, the npm version would be:
+
+```bash
+npm start -- "C:\\Users\\YourName\\Downloads"
+```
+
+## Example Result
 
 Before:
 
 ```text
 Downloads/
   image.png
-  notes.pdf
+  report.pdf
   song.mp3
-  random.zip
+  image.png
 ```
 
 After:
@@ -68,13 +79,21 @@ After:
 Downloads/
   Images/
     image.png
+    image (1).png
   Documents/
-    notes.pdf
+    report.pdf
   Media/
     song.mp3
-  Others/
-    random.zip
 ```
+
+## How It Works
+
+1. The script verifies that the provided path exists.
+2. It reads all items in the folder.
+3. It checks whether each item is a file.
+4. It detects the file extension and chooses the destination folder.
+5. If a file with the same name already exists in the destination, a new name like `file (1).txt` is generated.
+6. The file is moved into the appropriate folder.
 
 ## Project Structure
 
@@ -84,24 +103,26 @@ fileorganizer/
 ├── fetchDir.js
 ├── extFetch.js
 ├── pathVerify.js
+├── handleDuplicacy.js
 ├── makeDir.js
-└── package.json
+├── package.json
+└── README.md
 ```
 
 ## Notes
 
-- The script only organizes files in the top-level directory you provide.
-- Existing files with the same name in the destination folder may cause rename conflicts.
+- The script organizes only the top-level contents of the folder you pass in.
+- Existing files are never overwritten when a duplicate name is found.
 - Files are moved, not copied.
 
 ## Future Improvements
 
-- Add recursive sorting for nested folders
+- Add recursive folder scanning
 - Add a dry-run mode
-- Support custom extension-to-folder mappings
-- Add conflict handling for duplicate file names
-- Add a CLI help message and better error handling
+- Support custom extension categories
+- Add better CLI help and validation
+- Improve duplicate-handling messages in the console
 
 ## License
 
-This project is currently unlicensed. Add a license if you plan to publish it publicly.
+This project is currently unlicensed. Add a license file if you plan to publish it publicly.
