@@ -1,16 +1,14 @@
 # File Organizer
 
-File Organizer is a lightweight Node.js CLI that automatically sorts files in a folder into category-based subfolders. It is built for quick cleanup of messy directories such as downloads, desktop folders, or project asset folders.
+File Organizer is a small Node.js CLI that moves files from a chosen folder into category-based subfolders. It uses built-in Node.js modules and runs directly from the command line.
 
-The script scans the target directory, detects each file type, and moves it into a matching folder such as Images, Documents, Media, or Others. If a file with the same name already exists in the destination, the script generates a unique name instead of overwriting it.
+## What It Does
 
-## Features
-
-- Organizes files by extension into folders
-- Handles duplicate file names safely
-- Creates destination folders automatically
-- Works from the command line with a single folder path
-- Keeps the original file content intact while moving it
+- Scans the provided directory
+- Processes only files, not subfolders
+- Places files into a matching destination folder based on extension
+- Creates destination folders automatically when needed
+- Avoids overwriting files by generating names such as `file (1).txt`
 
 ## Supported File Types
 
@@ -22,77 +20,38 @@ The script scans the target directory, detects each file type, and moves it into
 ## Requirements
 
 - Node.js 16 or later
-- A folder path you want to organize
+- A folder path to organize
 
 ## Installation
-
-Clone the repository:
 
 ```bash
 git clone <your-repo-url>
 cd fileorganizer
 ```
 
-No extra packages are required because this project uses only built-in Node.js modules.
+No extra dependencies are required.
 
 ## Usage
 
-Run the organizer by passing a folder path:
+Run the organizer with a folder path:
 
 ```bash
-node main.js "Directory_Path"
+node main.js "C:\Users\YourName\Downloads"
 ```
 
-If you added the `start` script in `package.json`, you can also use:
+You can also use the npm script:
 
 ```bash
-npm start -- "Directory_Path"
-```
-
-Example:
-
-```bash
-node main.js "C:\\Users\\YourName\\Downloads"
-```
-
-For the same example, the npm version would be:
-
-```bash
-npm start -- "C:\\Users\\YourName\\Downloads"
-```
-
-## Example Result
-
-Before:
-
-```text
-Downloads/
-  image.png
-  report.pdf
-  song.mp3
-  image.png
-```
-
-After:
-
-```text
-Downloads/
-  Images/
-    image.png
-    image (1).png
-  Documents/
-    report.pdf
-  Media/
-    song.mp3
+npm start -- "C:\Users\YourName\Downloads"
 ```
 
 ## How It Works
 
 1. The script verifies that the provided path exists.
-2. It reads all items in the folder.
-3. It checks whether each item is a file.
+2. It reads the entries in the folder.
+3. It checks whether each entry is a file.
 4. It detects the file extension and chooses the destination folder.
-5. If a file with the same name already exists in the destination, a new name like `file (1).txt` is generated.
+5. If a file with the same name already exists, a new unique name is generated.
 6. The file is moved into the appropriate folder.
 
 ## Project Structure
@@ -104,25 +63,13 @@ fileorganizer/
 ├── extFetch.js
 ├── pathVerify.js
 ├── handleDuplicacy.js
-├── makeDir.js
 ├── package.json
 └── README.md
 ```
 
 ## Notes
 
-- The script organizes only the top-level contents of the folder you pass in.
-- Existing files are never overwritten when a duplicate name is found.
+- Only the top-level contents of the target folder are processed.
+- Directories are skipped.
 - Files are moved, not copied.
-
-## Future Improvements
-
-- Add recursive folder scanning
-- Add a dry-run mode
-- Support custom extension categories
-- Add better CLI help and validation
-- Improve duplicate-handling messages in the console
-
-## License
-
-This project is currently unlicensed. Add a license file if you plan to publish it publicly.
+- The project currently declares the ISC license in package.json.
