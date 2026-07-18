@@ -64,7 +64,8 @@ fileorganizer/
 ├── pathVerify.js
 ├── handleDuplicacy.js
 ├── package.json
-└── README.md
+├── README.md
+└── temp-demo/   # created temporarily for testing the script
 ```
 
 ## Notes
